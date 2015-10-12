@@ -73,13 +73,6 @@ def loadRegisterCharge
 		RegisterVertex.new('B',20,0)]
 end
 
-my_network = FlowNetwork.new('Cbba', 'LaPaz', loadStationPeople)
-my_network.ford_fulkerson
-puts my_network.report
-
-my_network = FlowNetwork.new('Cbba', 'LaPaz', loadStationCharge)
-my_network.ford_fulkerson
-puts my_network.report
 
 
 =begin
