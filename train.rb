@@ -37,7 +37,7 @@ class WagomPeople < Wagom
 
 	def information
 		super()
-		print "people: #{capacity}, actual: #{actual}"
+		print "people: #{capacity}"#, actual: #{actual}"
 		puts
 	end
 end
@@ -49,7 +49,7 @@ class WagomCharge < Wagom
 
 	def information
 		super()
-		print "tons: #{capacity}, actual: #{actual}"
+		print "tons: #{capacity}"#, actual: #{actual}"
 		puts
 	end
 
@@ -61,7 +61,11 @@ class Train
 		@wagoms = wagoms
 	end
 	
-	def showWagom
+	def NumWagon
+		@wagoms.size
+	end
+
+	def showWagon
 		@wagoms.each do |wagom|
       		wagom.information
     	end
