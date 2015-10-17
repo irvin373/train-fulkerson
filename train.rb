@@ -91,10 +91,3 @@ class Train
     	resp
 	end
 end
-
-def loadTrain
-	wagom = [WagomCharge.new(1,50,0),WagomCharge.new(2,50,0),
-	WagomCharge.new(3,50,0), WagomPeople.new(4,100,0),
-	WagomPeople.new(5,100,0),WagomPeople.new(6,100,0)] 
-	train = Train.new(7,wagom)
-end

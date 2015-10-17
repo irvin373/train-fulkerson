@@ -1,6 +1,9 @@
 require './train.rb'
 require './fordFulkerson.rb'
 
+$sCharge = 50
+$sPeople = 100
+
 class RegisterVertex
 	def initialize(vertex, load, unload)
 		@vertex = vertex
@@ -74,8 +77,8 @@ end
 
 class LoadWagoms
 	def initialize(sWagom)
-		@sCharge = 50
-		@sPeople = 100
+		@sCharge = $sCharge
+		@sPeople = $sPeople
 		@index = 0
 		@sWagom = sWagom
 	end
@@ -83,9 +86,16 @@ class LoadWagoms
 	def loadWagomPeople(num)
 		resp = []
 		i = num/@sPeople
-		for j in 0..i
-			resp << WagomPeople.new(@index, @sPeople, 0)
-			@index+=1
+		if i > @sWagom
+			for j in 0..(@sWagom -1)
+				resp << WagomPeople.new(@index, @sPeople, 0)
+				@index+=1
+			end
+		else
+			for j in 0..i
+				resp << WagomPeople.new(@index, @sPeople, 0)
+				@index+=1
+			end
 		end
 		resp
 	end
