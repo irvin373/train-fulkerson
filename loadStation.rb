@@ -15,15 +15,24 @@ class RegisterVertex
 end
 
 class LoadDataStation
-	def initialize(logRegister, maxSize)
+	def initialize(logRegister, maxSize, tipe)
 		@logRegister = logRegister
 		@maxSize = maxSize
+		@capacitywagom = 0
+		if tipe == "people"
+			@capacitywagom = $sPeople
+		else
+			@capacitywagom = $sCharge
+		end
 	end
-	
+
 	def size
 		resp = 0
 		@logRegister.each do |register|
 			resp += register.load
+		end
+		if @capacitywagom < resp
+			resp = (@capacitywagom*@maxSize)
 		end
 		resp
 	end
@@ -40,7 +49,7 @@ def loadStation
 end
 
 def loadStationCharge(maxSize)
-	station = LoadDataStation.new(loadRegisterCharge,maxSize)
+	station = LoadDataStation.new(loadRegisterCharge,maxSize,"charge")
 	size = station.size
 	my_edges = [Edge.new('Cbba', 'A', size), Edge.new('Cbba', 'C', size),
 	  Edge.new('A', 'B', size), Edge.new('B', 'LaPaz', size),
@@ -52,7 +61,7 @@ def loadStationCharge(maxSize)
 end
 
 def loadStationPeople(maxSize)
-	station = LoadDataStation.new(loadRegisterPeople,maxSize)
+	station = LoadDataStation.new(loadRegisterPeople,maxSize,"people")
 	size = station.size
 	my_edges = [Edge.new('Cbba', 'A', size), Edge.new('Cbba', 'C', size),
 	  Edge.new('A', 'B', size), Edge.new('B', 'LaPaz', size),
@@ -87,12 +96,12 @@ class LoadWagoms
 		resp = []
 		i = num/@sPeople
 		if i > @sWagom
-			for j in 0..(@sWagom -1)
+			for j in 1..@sWagom
 				resp << WagomPeople.new(@index, @sPeople, 0)
 				@index+=1
 			end
 		else
-			for j in 0..i
+			for j in 1..i
 				resp << WagomPeople.new(@index, @sPeople, 0)
 				@index+=1
 			end
