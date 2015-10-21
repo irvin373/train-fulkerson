@@ -1,3 +1,4 @@
+require './loadStation'
 class Edge
   attr_accessor :tail, :head, :capacity
 
@@ -108,8 +109,23 @@ class FlowNetwork
     resp
   end
 
-  def reportFlow(report)
-
+  def reportFlow
+    flow = 0
+    rep = []
+    resp = ""
+    resp += "Source: #{source} \n"#, @source, "\n"
+    resp += "Sink: #{sink} \n"#, @sink, "\n"
+    @network.each_pair do |e, v|
+      x = calcFlow(e.tail).pop
+      rep << x
+      if rep.include? x
+          flow +=x.load
+          f = v-flow          
+      end
+      
+      resp += "#{e.tail} -> #{e.head} capacity: #{e.capacity}# flow: #{f}\n"
+    end
+    resp +="\n"
   end
 
   def report
@@ -117,7 +133,7 @@ class FlowNetwork
     resp += "Source: #{source} \n"#, @source, "\n"
     resp += "Sink: #{sink} \n"#, @sink, "\n"
     @network.each_pair do |e, v|
-      resp += "#{e.tail} -> #{e.head} capacity: #{e.capacity} flow: #{v}\n"
+      resp += "#{e.tail} -> #{e.head} capacity: #{e.capacity}\n"# flow: #{v}\n"
     end
     resp +="\n"
   end

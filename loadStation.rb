@@ -11,6 +11,10 @@ class RegisterVertex
 		@unload = unload
 	end
 	
+	def calcFlow(flowMax)
+		flowMax - @load		
+	end
+
 	attr_accessor :vertex, :load, :unload
 end
 
@@ -77,11 +81,17 @@ def loadRegisterPeople
 		RegisterVertex.new('C',40,10),RegisterVertex.new('D',50,0),
 		RegisterVertex.new('B',20,0)]
 end
- 
+
+
+
 def loadRegisterCharge
 	[RegisterVertex.new('Cbba',80,0),RegisterVertex.new('A',50,0),
 		RegisterVertex.new('C',30,10),RegisterVertex.new('D',20,0),
 		RegisterVertex.new('B',10,0)]
+end
+
+def calcFlow(name)
+	loadRegisterPeople.select{|x| x.vertex == name}
 end
 
 class LoadWagoms
@@ -95,7 +105,6 @@ class LoadWagoms
 	def loadWagomPeople(num)
 		resp = []
 		i = num/@sPeople
-		puts "#{i} = #{@sWagom}"
 		if i > @sWagom
 			for j in 1..@sWagom
 				resp << WagomPeople.new(@index, @sPeople, 0)
