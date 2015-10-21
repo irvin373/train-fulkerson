@@ -31,7 +31,7 @@ class LoadDataStation
 		@logRegister.each do |register|
 			resp += register.load
 		end
-		if @capacitywagom < resp
+		if (@capacitywagom*@maxSize) < resp
 			resp = (@capacitywagom*@maxSize)
 		end
 		resp
@@ -95,6 +95,7 @@ class LoadWagoms
 	def loadWagomPeople(num)
 		resp = []
 		i = num/@sPeople
+		puts "#{i} = #{@sWagom}"
 		if i > @sWagom
 			for j in 1..@sWagom
 				resp << WagomPeople.new(@index, @sPeople, 0)

@@ -108,6 +108,10 @@ class FlowNetwork
     resp
   end
 
+  def reportFlow(report)
+
+  end
+
   def report
   	resp = ""
     resp += "Source: #{source} \n"#, @source, "\n"

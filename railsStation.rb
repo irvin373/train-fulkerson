@@ -42,7 +42,7 @@ end
 sinOptimizar
 
 puts "fill size of motor: "
-num = 2
+num = 7
 p,c,t = loadData num
 estacion = RailsStation.new(p,c,t)
 estacion.showWagon
